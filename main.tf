@@ -52,31 +52,31 @@ module "eks" {
 
   
 # }
-# module "ec2"{
-#     source = "./EC2"
-#     jenk_sub = module.vpc.pub_subnet_ids[0]
-#     jenk_sg = module.vpc.vpc_sg
+ module "ec2"{
+     source = "./EC2"
+     jenk_sub = module.vpc.pub_subnet_ids[0]
+     jenk_sg = module.vpc.vpc_sg
    
-# }
-# module "backup" {
-#     source = "./backup"
-#     ec2_arn  = module.ec2.ec2_arn
+ }
+ module "backup" {
+     source = "./backup"
+     ec2_arn  = module.ec2.ec2_arn
   
-# }
-# module "aws_s3_bucket" {
-#     source = "./s3bucket"
-#     bucket_name = var.bucket_name
-#     aws_account_id = var.aws_account_id
+ }
+ module "aws_s3_bucket" {
+     source = "./s3bucket"
+     bucket_name = var.bucket_name
+     aws_account_id = var.aws_account_id
 
   
-# }
-# module "local_file"{
-#     source = "./local_file"
-#     filename = var.filename
-#     depend_on = [module.ec2.ec2_arn]
-#     ip = module.ec2.public_ip
+ }
+ module "local_file"{
+     source = "./local_file"
+     filename = var.filename
+     depend_on = [module.ec2.ec2_arn]
+     ip = module.ec2.public_ip
 
-# }
+ }
 module "ecr" {
   source = "./ECR"
   ecr_name = "backend_repo"
