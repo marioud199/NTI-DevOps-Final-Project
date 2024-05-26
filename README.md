@@ -1,4 +1,4 @@
-#NTI DevOps Final Project README
+# NTI DevOps Final Project README
 Overview
 
 This project demonstrates a comprehensive DevOps pipeline utilizing various technologies including Terraform, Ansible, Docker, Kubernetes, and Jenkins. The goal is to automate the setup, deployment, and management of a web application with a focus on scalability, reliability, and security.
