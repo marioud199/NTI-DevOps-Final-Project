@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mongo
+spec:
+  serviceName: "mongo"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongo
+  template:
+    metadata:
+      labels:
+        app: mongo
+    spec:
+      volumes: 
+      - name: task-pv-storage
+        persistentVolumeClaim:
+          claimName: task-pv-claim
+      containers:
+      - name: mongo
+        image: mongo:4.4
+        ports:
+        - containerPort: 80
+        env:
+        - name: MONGO_INITDB_ROOT_USERNAME
+          value: username
+        - name: MONGO_INITDB_ROOT_PASSWORD
+          value: password
+        volumeMounts:
+        - name: task-pv-storage
+          mountPath: /data/db
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongo
+spec:
+  ports:
+  - port: 80
+    targetPort: 80
+  clusterIP: None
+  selector:
+    app: mongo

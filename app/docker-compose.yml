@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  mongo:
+    image: mongo:4.4
+    volumes:
+      - mongo_data:/data/db
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: username
+      MONGO_INITDB_ROOT_PASSWORD: password
+    restart: always
+
+  backend:
+    build: backend/.
+    ports:
+      - "3001:3001"
+    depends_on:
+      - mongo
+
+  frontend:
+    build: frontend/.
+    depends_on:
+      - backend
+    ports:
+      - "3000:3000"
+
+volumes:
+  mongo_data:
