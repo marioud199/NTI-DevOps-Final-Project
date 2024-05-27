@@ -1,5 +1,5 @@
 provider "aws" {
-    region = "eu-west-1"
+    region = var.region
 }
 
 terraform {
@@ -48,35 +48,33 @@ module "eks" {
 #     storage_type = var.storage_type
 #     db_subnet_group = module.vpc.pub_subnet_ids
 #     vpc_id = module.vpc.vpc_id
-    
-
   
 # }
- module "ec2"{
-     source = "./EC2"
-     jenk_sub = module.vpc.pub_subnet_ids[0]
-     jenk_sg = module.vpc.vpc_sg
+module "ec2"{
+    source = "./EC2"
+    jenk_sub = module.vpc.pub_subnet_ids[0]
+    jenk_sg = module.vpc.vpc_sg
    
- }
- module "backup" {
-     source = "./backup"
-     ec2_arn  = module.ec2.ec2_arn
+}
+module "backup" {
+    source = "./backup"
+    ec2_arn  = module.ec2.ec2_arn
   
- }
- module "aws_s3_bucket" {
-     source = "./s3bucket"
-     bucket_name = var.bucket_name
-     aws_account_id = var.aws_account_id
+}
+module "aws_s3_bucket" {
+    source = "./s3bucket"
+    bucket_name = var.bucket_name
+    aws_account_id = var.aws_account_id
 
   
- }
- module "local_file"{
-     source = "./local_file"
-     filename = var.filename
-     depend_on = [module.ec2.ec2_arn]
-     ip = module.ec2.public_ip
+}
+module "local_file"{
+    source = "./local_file"
+    filename = var.filename
+    depend_on = [module.ec2.ec2_arn]
+    ip = module.ec2.public_ip
 
- }
+}
 module "ecr" {
   source = "./ECR"
   ecr_name = "backend_repo"
@@ -84,10 +82,13 @@ module "ecr" {
 
   
 }
-module "ecr2" {
-  source = "./ECR"
-  ecr_name = "frontend_repo"
-  image_tag_mutability = "MUTABLE"
-  
+
+
+module "ebs_csi" {
+  source                  = "./EBS"
+  cluster_name            = module.eks.eks_name
+  depends_on              = [module.eks]
+
+
   
 }
