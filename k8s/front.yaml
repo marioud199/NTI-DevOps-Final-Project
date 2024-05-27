@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: frontend-deployment
+  name: frontend
 spec:
   replicas: 1
   selector:
@@ -17,9 +17,9 @@ spec:
         image: marioud/frontend
         ports:
         - containerPort: 80
-        env:
-        - name: BACKEND_URL
-          value: "http://backend-service:3001"
+        envFrom:
+        - configMapRef:
+            name: app-config
 ---
 apiVersion: v1
 kind: Service
@@ -29,7 +29,7 @@ spec:
   selector:
     app: frontend
   ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 80
+  - protocol: TCP
+    port: 80
+    targetPort: 80
   type: LoadBalancer
