@@ -73,3 +73,7 @@ variable "bucket_name" {
 variable "filename" {
   
 }
+
+variable "region" {
+  
+}
