@@ -10,6 +10,13 @@ pipeline {
     }
 
     stages {
+        stage("start ........") {
+            steps {
+                script {
+                    echo "starting the project ......"
+                }
+                }
+        }
 
         stage("build image") {
             steps {
@@ -49,6 +56,13 @@ pipeline {
                     }
                 }
             }
+        }
+        stage("THE END") {
+            steps {
+                script {
+                    echo "finishing  the project ......"
+                }
+                }
         }
     }
 }
