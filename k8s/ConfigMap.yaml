@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config
+data:
+  MONGO_URI: mongodb://username:password@mongo:27017/todos?authSource=admin
+  BACKEND_URL: http://backend-service:80
