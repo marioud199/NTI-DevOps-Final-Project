@@ -6,5 +6,5 @@ provisioner: ebs.csi.aws.com
 parameters:
   type: gp2
   fsType: ext4
-reclaimPolicy: Retain
+reclaimPolicy: Delete
 volumeBindingMode: WaitForFirstConsumer
