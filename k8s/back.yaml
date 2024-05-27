@@ -17,17 +17,14 @@ spec:
         image: marioud/backend
         ports:
         - containerPort: 80
-        env:
-      
-        - name: MONGO_URI
-          value: mongodb://username:password@mongo:27017/todos?authSource=admin
-        
-      
+        envFrom:
+        - configMapRef:
+            name: app-config
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: backend
+  name: backend-service
 spec:
   selector:
     app: backend
