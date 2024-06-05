@@ -17,11 +17,14 @@ spec:
         image: marioud/frontend
         ports:
         - containerPort: 80
-        envFrom:
-        - configMapRef:
-            name: app-config
-            key: BACKEND_URL
+        env:
+        - name: BACKEND_URL
+          valueFrom:
+            configMapKeyRef:
+              name: app-config
+              key: BACKEND_URL
 ---
+
 apiVersion: v1
 kind: Service
 metadata:
