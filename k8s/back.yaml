@@ -17,11 +17,14 @@ spec:
         image: marioud/backend
         ports:
         - containerPort: 80
-        envFrom:
-        - configMapRef:
-            name: app-config
-            key: MONGO_URI
+        env:
+        - name: MONGO_URI
+          valueFrom:
+            configMapKeyRef:
+              name: app-config
+              key: MONGO_URI
 ---
+
 apiVersion: v1
 kind: Service
 metadata:
