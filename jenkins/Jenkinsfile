@@ -2,7 +2,7 @@ pipeline {
     agent any 
 
     environment {
-        REPO_SERVER = "730335618715.dkr.ecr.eu-west-1.amazonaws.com/backend_repo"
+        REPO_SERVER = "account_id.dkr.ecr.eu-west-1.amazonaws.com/backend_repo"
         REPO_NAME_BACKEND = "${REPO_SERVER}:backend"
         REPO_NAME_FRONTEND = "${REPO_SERVER}:frontend"
         IMAGE_VERSION = "${BUILD_NUMBER}"
