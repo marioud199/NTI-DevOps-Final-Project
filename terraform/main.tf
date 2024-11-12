@@ -35,48 +35,48 @@ module "eks" {
     depends_on = [ module.vpc ]
     
 }
-# module "RDS" {  
-#     source = "./modules/RDS"
-#     engine = var.engine
-#     engine_version = var.engine_version
-#     instance_class = var.instance_class
-#     db_name = var.db_name
-#     username = var.username
-#     password = var.password
-#     parameter_group_name = var.parameter_group_name
-#     allocated_storage = var.allocated_storage
-#     storage_type = var.storage_type
-#     db_subnet_group = module.vpc.pub_subnet_ids
-#     vpc_id = module.vpc.vpc_id
+ module "RDS" {  
+     source = "./modules/RDS"
+     engine = var.engine
+     engine_version = var.engine_version
+     instance_class = var.instance_class
+     db_name = var.db_name
+     username = var.username
+     password = var.password
+     parameter_group_name = var.parameter_group_name
+     allocated_storage = var.allocated_storage
+     storage_type = var.storage_type
+     db_subnet_group = module.vpc.pub_subnet_ids
+     vpc_id = module.vpc.vpc_id
     
 
   
-# }
-# module "ec2"{
-#     source = "./modules/EC2"
-#     jenk_sub = module.vpc.pub_subnet_ids[0]
-#     jenk_sg = module.vpc.vpc_sg
+ }
+ module "ec2"{
+     source = "./modules/EC2"
+     jenk_sub = module.vpc.pub_subnet_ids[0]
+     jenk_sg = module.vpc.vpc_sg
    
-# }
-# module "backup" {
-#     source = "./modules/backup"
-#     ec2_arn  = module.ec2.ec2_arn
+ }
+ module "backup" {
+     source = "./modules/backup"
+     ec2_arn  = module.ec2.ec2_arn
   
-# }
-# module "aws_s3_bucket" {
+ }
+ module "aws_s3_bucket" {
 #     source = "./modules/s3bucket"
 #     bucket_name = var.bucket_name
 #     aws_account_id = var.aws_account_id
 
   
-# }
-# module "local_file"{
-#     source = "./modules/local_file"
-#     filename = var.filename
-#     depend_on = [module.ec2.ec2_arn]
-#     ip = module.ec2.public_ip
+ }
+ module "local_file"{
+     source = "./modules/local_file"
+     filename = var.filename
+     depend_on = [module.ec2.ec2_arn]
+     ip = module.ec2.public_ip
 
-# }
+ }
 module "ecr" {
   source = "./modules/ECR"
   ecr_name = "backend_repo"
