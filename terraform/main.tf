@@ -64,9 +64,9 @@ module "eks" {
   
  }
  module "aws_s3_bucket" {
-#     source = "./modules/s3bucket"
-#     bucket_name = var.bucket_name
-#     aws_account_id = var.aws_account_id
+      source = "./modules/s3bucket"
+      bucket_name = var.bucket_name
+      aws_account_id = var.aws_account_id
 
   
  }
@@ -94,3 +94,4 @@ module "ebs_csi" {
 
   
 }
+
